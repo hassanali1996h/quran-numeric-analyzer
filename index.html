@@ -37,7 +37,7 @@
   </style>
 </head>
 <body id="body" class="bg-[#fdfcf9] text-[#2e7d32] p-6">
-<div class="fixed top-4 left-4 z-50">
+  <div class="fixed top-4 left-4 z-50">
   <button onclick="toggleDarkMode()" class="bg-gray-800 text-white px-3 py-1 rounded-xl text-sm shadow-md hover:bg-gray-700">🌓 وضع الليل</button>
 </div>
 
@@ -128,32 +128,7 @@ window.onload = function () {
   if (localStorage.getItem("dark-mode") === "on") {
     document.getElementById("body").classList.add("dark-mode");
   }
-  window.onload = function () {
-  const urlParams = new URLSearchParams(window.location.search);
-  const action = urlParams.get("action");
 
-  if (action === "camera") {
-    // تجاوز واجهة الرمز
-    document.getElementById("introScreen").style.display = "none";
-    document.getElementById("mainApp").style.display = "block";
-
-    // تشغيل الكاميرا بعد الدخول
-    setTimeout(() => {
-      openCamera();
-    }, 500);
-  }
-
-  // الكود السابق داخل window.onload
-  if (localStorage.getItem("dark-mode") === "on") {
-    document.getElementById("body").classList.add("dark-mode");
-  }
-
-  const input = document.getElementById("inputText");
-  const imageButtons = document.getElementById("imageButtons");
-  input.addEventListener("input", () => {
-    imageButtons.style.display = input.value.trim() ? "none" : "flex";
-  });
-};
   const input = document.getElementById("inputText");
   const imageButtons = document.getElementById("imageButtons");
   input.addEventListener("input", () => {
@@ -286,7 +261,7 @@ async function analyzeImageOCR(base64Image) {
     alert("فشل تحليل الصورة. حاول مرة أخرى.");
   }
 }
-  const values = {
+ const values = {
   "٠": 0, "١": 1, "٢": 2, "٣": 3, "٤": 4, "٥": 5, "٦": 6, "٧": 7, "٨": 8, "٩": 9,
   "A": 1, "a": 1, "B": 9, "b": 9, "C": 10, "c": 10, "D": 16, "d": 16,
   "E": 12, "e": 12, "F": 13, "f": 13, "G": 27, "g": 27, "H": 7, "h": 7,
@@ -401,26 +376,41 @@ function openAyah() {
   const url = aya ? `https://quran.com/${sura}/${aya}` : `https://quran.com/${sura}`;
   window.open(url, "_blank");
 }
-  
+  </script>
+
+<div class="text-center text-sm text-gray-600 mt-16 mb-4 leading-relaxed">
+  <p class="text-green-700 font-semibold">﴿ وَقُل رَّبِّ زِدْنِي عِلْمًا ﴾</p>
+  <p>تم بحمد الله وتوفيقه</p>
+  <p>بإشراف: <strong>عبدالرحمن عمرو</strong></p>
+  <p>تطوير: <strong>حسن علي</strong></p>
+</div>
+
 <script>
-// تجاوز واجهة الرمز وتشغيل الكاميرا إذا وُجد ?action=camera
+function toggleDetails() {
+  const details = document.getElementById("details");
+  if (details) {
+    details.classList.toggle("hidden");
+  }
+}
+
+function triggerAnalyze() {
+  if (typeof analyze === "function") {
+    analyze();
+  }
+}
+
+// كود تفعيل الكاميرا إذا وُجد ?action=camera في الرابط
 window.addEventListener("DOMContentLoaded", function () {
   const urlParams = new URLSearchParams(window.location.search);
   const action = urlParams.get("action");
 
   if (action === "camera") {
-    const wait = setInterval(() => {
-      const input = document.getElementById("passcodeInput");
-      const btn = document.querySelector("button[onclick='startApp()']");
-      if (input && btn) {
-        clearInterval(wait);
-        input.value = "2222";
-        btn.click();
-        setTimeout(() => openCamera(), 800);
-      }
-    }, 200);
+    setTimeout(() => {
+      openCamera();
+    }, 500); // تأخير خفيف للتأكد من تحميل الصفحة
   }
 });
 </script>
+
 </body>
 </html>
